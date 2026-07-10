@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Assistant</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="js/storage.js"></script>
+<script src="js/ai.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="add-transaction.html">Add Transaction</a>
+<a href="history.html">History</a>
+<a href="reports.html">Reports</a>
+<a href="settings.html">Settings</a>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<h2>AI Finance Assistant</h2>
+
+<textarea
+id="question"
+placeholder="Ask a finance question..."
+rows="5"></textarea>
+
+<br><br>
+
+<button id="askBtn">
+
+Ask AI
+
+</button>
+
+<div id="reply"></div>
+
+</div>
+
+<script>
+
+
+const askBtn=document.getElementById("askBtn");
+
+askBtn.onclick=async()=>{
+
+const question=document.getElementById("question").value.trim();
+
+if(question===""){
+
+alert("Please enter a question.");
+
+return;
+
+}
+
+const prompt=`
+Current Balance: ₹${getBalance()}
+
+Income: ₹${getTotalIncome()}
+
+Expenses: ₹${getTotalExpenses()}
+
+Category Totals:
+${JSON.stringify(getCategoryTotals())}
+
+User Question:
+${question}
+
+Give a clear, practical answer.
+`;
+
+document.getElementById("reply").innerHTML="Thinking...";
+
+const answer=await askAI(prompt);
+
+document.getElementById("reply").innerHTML=answer;
+
+};
+
+
+</script>
+
+<script>
+const settings = getSettings();
+
+if (settings.darkMode) {
+    document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>

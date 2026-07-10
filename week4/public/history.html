@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Transaction History</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="js/storage.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="add-transaction.html">Add Transaction</a>
+<a href="reports.html">Reports</a>
+<a href="assistant.html">AI Assistant</a>
+<a href="settings.html">Settings</a>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<h2>Transaction History</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Description</th>
+<th>Amount</th>
+<th>Type</th>
+<th>Category</th>
+<th>Date</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+const tbody=document.getElementById("historyTable");
+
+function loadTransactions(){
+
+tbody.innerHTML="";
+
+getTransactions().forEach(t=>{
+
+tbody.innerHTML+=`
+
+<tr>
+
+<td>${t.description}</td>
+
+<td>₹${t.amount}</td>
+
+<td>${t.type}</td>
+
+<td>${t.category}</td>
+
+<td>${t.date}</td>
+
+<td>
+
+<button onclick="removeTransaction(${t.id})">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+function removeTransaction(id){
+
+if(confirm("Delete this transaction?")){
+
+deleteTransaction(id);
+
+loadTransactions();
+
+}
+
+}
+
+loadTransactions();
+
+</script>
+
+<script>
+const settings = getSettings();
+
+if (settings.darkMode) {
+    document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>

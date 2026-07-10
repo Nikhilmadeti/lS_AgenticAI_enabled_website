@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reports</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="js/storage.js"></script>
+<script src="js/ai.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="add-transaction.html">Add Transaction</a>
+<a href="history.html">History</a>
+<a href="assistant.html">AI Assistant</a>
+<a href="settings.html">Settings</a>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<h2>Expense Reports</h2>
+
+<canvas id="myChart"></canvas>
+
+<br><br>
+
+<button id="insightsBtn">
+
+Generate AI Insights
+
+</button>
+
+<div id="aiOutput"></div>
+
+</div>
+
+<script>
+
+const totals=getCategoryTotals();
+
+new Chart(document.getElementById("myChart"),{
+
+type:"pie",
+
+data:{
+
+labels:Object.keys(totals),
+
+datasets:[{
+
+data:Object.values(totals),
+
+backgroundColor:[
+"#2c7a7b",
+"#f39c12",
+"#3498db",
+"#e74c3c",
+"#8e44ad",
+"#16a085"
+]
+
+}]
+
+}
+
+});
+
+document.getElementById("insightsBtn").onclick=async()=>{
+
+const balance=getBalance();
+
+const prompt=`
+My balance is ₹${balance}.
+
+My expenses by category are:
+
+${JSON.stringify(totals)}
+
+Give me 5 financial tips.
+`;
+
+document.getElementById("aiOutput").innerHTML="Generating insights...";
+
+const reply=await askAI(prompt);
+
+document.getElementById("aiOutput").innerHTML=reply;
+
+};
+
+</script>
+
+<script>
+const settings = getSettings();
+
+if (settings.darkMode) {
+    document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>

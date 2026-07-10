@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="js/storage.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="add-transaction.html">Add Transaction</a>
+<a href="history.html">History</a>
+<a href="reports.html">Reports</a>
+<a href="assistant.html">AI Assistant</a>
+<a href="settings.html">Settings</a>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<h2>Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Balance</h3>
+
+<h2 id="balance">₹0</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Total Income</h3>
+
+<h2 id="income">₹0</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Total Expense</h3>
+
+<h2 id="expense">₹0</h2>
+
+</div>
+
+</div>
+
+<h2 style="margin-top:40px">
+
+Recent Transactions
+
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Description</th>
+<th>Amount</th>
+<th>Type</th>
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="recentTransactions">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+document.getElementById("balance").innerHTML="₹"+getBalance();
+
+document.getElementById("income").innerHTML="₹"+getTotalIncome();
+
+document.getElementById("expense").innerHTML="₹"+getTotalExpenses();
+
+const tbody=document.getElementById("recentTransactions");
+
+const transactions=getTransactions();
+
+transactions.slice(-5).reverse().forEach(t=>{
+
+tbody.innerHTML+=`
+
+<tr>
+
+<td>${t.description}</td>
+
+<td>₹${t.amount}</td>
+
+<td>${t.type}</td>
+
+<td>${t.date}</td>
+
+</tr>
+
+`;
+
+});
+
+</script>
+
+<script>
+const settings = getSettings();
+
+if (settings.darkMode) {
+    document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>

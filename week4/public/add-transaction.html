@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Transaction</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="js/storage.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="dashboard.html">Dashboard</a>
+<a href="history.html">History</a>
+<a href="reports.html">Reports</a>
+<a href="assistant.html">AI Assistant</a>
+<a href="settings.html">Settings</a>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<h2>Add Transaction</h2>
+
+<form id="transactionForm">
+
+<input
+type="text"
+id="description"
+placeholder="Description"
+required>
+
+<input
+type="number"
+id="amount"
+placeholder="Amount"
+required>
+
+<select id="type">
+
+<option value="income">Income</option>
+
+<option value="expense">Expense</option>
+
+</select>
+
+<input
+type="text"
+id="category"
+placeholder="Category"
+required>
+
+<input
+type="date"
+id="date"
+required>
+
+<button type="submit">
+
+Add Transaction
+
+</button>
+
+</form>
+
+<p id="message"></p>
+
+</div>
+
+<script>
+
+const form=document.getElementById("transactionForm");
+
+const message=document.getElementById("message");
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const transaction={
+
+description:document.getElementById("description").value,
+
+amount:Number(document.getElementById("amount").value),
+
+type:document.getElementById("type").value,
+
+category:document.getElementById("category").value,
+
+date:document.getElementById("date").value
+
+};
+
+addTransaction(transaction);
+
+message.innerHTML="Transaction Added Successfully!";
+
+message.style.color="green";
+
+form.reset();
+
+});
+
+</script>
+
+<script>
+const settings = getSettings();
+
+if (settings.darkMode) {
+    document.body.classList.add("dark");
+}
+</script>
+
+</body>
+</html>
